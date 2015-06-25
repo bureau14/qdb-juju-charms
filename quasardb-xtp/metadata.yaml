@@ -1,0 +1,21 @@
+name: quasardb XTP
+summary: An advanced distributed key-value store
+maintainer: quasardb <bug@quasardb.net>
+description: |
+  <Multi-line description here>
+categories:
+  - database
+  - big_data
+subordinate: false
+provides:
+  database:
+    interface: quasardb
+    sets: [host, port]
+  provides-relation:
+    interface: interface-name
+requires:
+  requires-relation:
+    interface: interface-name
+peers:
+  peer-relation:
+    interface: interface-name

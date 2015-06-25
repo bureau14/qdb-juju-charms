@@ -1,0 +1,45 @@
+#!/bin/bash
+# Here do anything needed to install the service
+# i.e. apt-get install -y foo  or  bzr branch http://myserver/mycode /srv/webroot
+# Make sure this hook exits cleanly and is idempotent, common problems here are
+# failing to account for a debconf question on a dependency, or trying to pull
+# from github without installing git first.
+
+set -e # If any command fails, stop execution of the hook with that error
+
+apt-get install -y curl jq
+
+qdb_dl_rl = "https://download.quasardb.net/quasardb/2.0/beta3/"
+
+qdb_server_deb = $qdb_dl_rl"server/"
+qdb_utils_deb = $qdb_dl_rl""
+qdb_api_deb = $qdb_dl_rl""
+
+juju-log "fetching quasardb server"
+curl $qdb_server_deb -O /tmp/qdb_server.deb
+juju-log "fetching quasardb utils"
+curl $qdb_utils_deb -O /tmp/qdb_utils.deb
+juju-log "fetching quasardb C/C++ API"
+curl $qdb_api_deb -O /tmp/qdb_c_api.deb
+
+juju-log "installing quasardb server"
+dpkg -i /tmp/qdb_server.deb
+rm -f /tmp/qdb_server.deb
+
+juju-log "installing quasardb utils"
+dpkg -i /tmp/qdb_utils.deb
+rm -f /tmp/qdb_utils.deb
+
+juju-log "installing quasardb C/C++ API"
+dpkg -i /tmp/qdb_c_api.deb
+rm -f /tmp/qdb_c_api.deb
+
+juju-log "updating configurations"
+
+# need to update the IP addresses of the node
+# that is the section local/network/listen_on for /etc/qdb/qdbd.conf
+
+# and listen_on for /etc/qdb/qdb_httpd.conf
+
+open-port 2836
+open-port 8080
