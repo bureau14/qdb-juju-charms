@@ -14,13 +14,13 @@ Thanks to its master-less design, quasardb is able to face the loss of nodes tra
 
 ## Scale up
 
-    Scale up is automatic. Increase the number of cores in your VM and restart the node instance.
+Scale up is automatic. Increase the number of cores in your VM and restart the node instance.
 
 ## Scale out
 
 Please follow these two steps:
 
- 1. juju add-unit quasardb-xtp
+ 1. `juju add-unit quasardb-xtp`
  2. There is no second step
 
 # Configuration
