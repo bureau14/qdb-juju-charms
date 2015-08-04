@@ -1,0 +1,25 @@
+options:
+  qdb_port:
+    type: int
+    default: 2836
+    description: "quasardb listening port"
+  admin_port:
+    type: int
+    default: 8080
+    description: "quasardb admin listening port"
+  idle_timeout:
+    type: int
+    default: 600
+    description: "connections idle for that long will be disconnected"
+  client_timeout:
+    type: int
+    default: 60
+    description: "connection time out"
+  max_entries_count:
+    type: int
+    default: 1000000
+    description: "the maximum number of entries allowed in memory"
+  max_bytes:
+    type: int
+    default: 0
+    description: "the maximum total size allowed in memory, 0 for automatic"

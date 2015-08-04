@@ -1,0 +1,20 @@
+name: quasardb-xtp
+summary: An advanced distributed key-value store
+maintainer: quasardb <bug@quasardb.net>
+description: |
+  quasardb is a distributed key-value store. It scales horizontally and vertically for virtually unlimited capabilities. 
+  You can store raw data of any form and size into quasardb, but should you need to, you can also do atomic operations on integers, manipulate queues and sets. 
+  quasardb is write-safe by default and offers features to sync absolutely everything you do for maximum safety. 
+  Thanks to its master-less design, quasardb is able to face the loss of nodes transparently. 
+tags:
+  - database
+  - bigdata
+subordinate: false
+provides:
+  database:
+    interface: qdb
+  admin:
+    interface: http
+peers:
+  cluster:
+    interface: qdb-cluster

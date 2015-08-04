@@ -1,0 +1,32 @@
+#!/usr/bin/python
+
+import setup
+
+setup.pre_install()
+
+from install import install
+from utils import set_hostname, set_timeout, set_limiter
+from charmhelpers.core import hookenv
+from charmhelpers.core.services.base import service_restart
+
+def update_configuration():
+    # we need to eding the configurations to update
+    # - listening port
+    # - listening IP address
+    set_hostname(hookenv.unit_get('private-address'), hookenv.config('qdb_port'), hookenv.config('admin_port'))
+
+    # timeouts
+    set_timeout(hookenv.config('client_timeout'), hookenv.config('idle_timeout'))
+
+    # limiter
+    set_limiter(hookenv.config('max_bytes'), hookenv.config('max_entries_count'))
+
+    # we don't set the peer, it will be updated by cluster-relation changed
+
+if __name__ == "__main__":
+    hookenv.log('installing quasardb-xtp')
+
+    install()
+    update_configuration()
+
+    hookenv.log('quasardb-xtp installation complete')
